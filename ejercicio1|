@@ -1,0 +1,48 @@
+import time
+
+
+def BusquedaLineal(Lista, Objetivo):
+    Comparaciones = 0
+    for Indice in range(len(Lista)):
+        Comparaciones += 1
+        if Lista[Indice] == Objetivo:
+            return Indice, Comparaciones
+    return -1, Comparaciones
+
+
+def BusquedaBinaria(Lista, Objetivo):
+    Izquierda = 0
+    Derecha = len(Lista) - 1
+    Comparaciones = 0
+    while Izquierda <= Derecha:
+        Medio = (Izquierda + Derecha) // 2
+        Comparaciones += 1
+        if Lista[Medio] == Objetivo:
+            return Medio, Comparaciones
+        elif Lista[Medio] < Objetivo:
+            Izquierda = Medio + 1
+        else:
+            Derecha = Medio - 1
+    return -1, Comparaciones
+
+Datos = list(range(1, 200001))
+Objetivo = 175432
+
+Inicio = time.perf_counter()
+PosicionLineal, ComparacionesLineal = BusquedaLineal(Datos, Objetivo)
+TiempoLineal = time.perf_counter() - Inicio
+
+
+Inicio = time.perf_counter()
+PosicionBinaria, ComparacionesBinaria = BusquedaBinaria(Datos, Objetivo)
+TiempoBinaria = time.perf_counter() - Inicio
+
+print("BUSQUEDA LINEAL")
+print("Posicion:", PosicionLineal)
+print("Comparaciones:", ComparacionesLineal)
+print("Tiempo:", TiempoLineal, "segundos")
+
+print("\nBUSQUEDA BINARIA")
+print("Posicion:", PosicionBinaria)
+print("Comparaciones:", ComparacionesBinaria)
+print("Tiempo:", TiempoBinaria, "segundos")
